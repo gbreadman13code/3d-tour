@@ -8,8 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="/3d-tour/assets/index-a85f9f48.js"></script>
-    <link rel="stylesheet" href="/3d-tour/assets/index-1458ec73.css">
+    <script type="module" crossorigin src="/3d-tour/assets/index-e186bd2d.js"></script>
+    <link rel="stylesheet" href="/3d-tour/assets/index-e7e30b75.css">
   </head>
   <body>
     <div id="loader-container">
@@ -22,82 +22,84 @@
         <div class="loader-subtitle">ador</div>
       </div>
     </div>
-    <div id="ui-controls">
-    <div class="ui-group top-right">
-        <button id="btn-map" class="ui-btn" title="Map">
-          <img src="assets/icons/map.svg" alt="Map" />
-        </button>
-      </div>
-      <div class="ui-group bottom-right">
-        <button id="btn-screenshot" class="ui-btn" title="Screenshot">
-          <img src="assets/icons/camera.svg" alt="Screenshot" />
-        </button>
-        <button id="btn-fullscreen" class="ui-btn" title="Fullscreen">
-          <img src="assets/icons/monitor.svg" alt="Fullscreen" />
-        </button>
-      </div>
-      <!-- Location Navigation Panel -->
-      <div id="location-nav" class="location-nav">
-        <div id="location-list" class="location-list">
-          <!-- Dynamic buttons will be inserted here -->
+    <div id="tour-wrapper" class="tour-wrapper">
+      <div id="ui-controls">
+      <div class="ui-group top-right">
+          <button id="btn-map" class="ui-btn" title="Map">
+            <img src="assets/icons/map.svg" alt="Map" />
+          </button>
         </div>
-        <button id="location-main-btn" class="location-btn location-btn-main">
-          <span class="location-info">
-            <span class="location-icon" id="main-btn-icon"></span>
-            <span class="location-text" id="main-btn-text"></span>
-          </span>
-          <span class="location-toggle-icon">
-            <img src="assets/icons/arrow-down.svg" alt="Arrow Down" width="24" height="24" />
-          </span>
-        </button>
-      </div>
-      <!-- Scene Name Label -->
-      <div id="scene-name-label" class="scene-name-label hidden"></div>
-    </div>
-    <!-- Map Panel -->
-    <div id="map-panel" class="map-panel hidden">
-      <div class="map-content">
-        <!-- Map will be added here later -->
-      </div>
-      <button id="map-toggle-size" class="map-toggle-size" title="Expand">
-        <svg class="icon-expand" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
-        <svg class="icon-collapse" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
-      </button>
-      <button id="map-close" class="map-close" title="Close">
-        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
-    </div>
-    <!-- Screenshot Modal -->
-    <div id="screenshot-modal" class="screenshot-modal hidden">
-      <button id="screenshot-close" class="screenshot-close" title="Close">
-        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
-      <div class="screenshot-content">
-        <div class="screenshot-frame">
-          <img id="screenshot-image" src="" alt="Screenshot" />
+        <div class="ui-group bottom-right">
+          <button id="btn-screenshot" class="ui-btn" title="Screenshot">
+            <img src="assets/icons/camera.svg" alt="Screenshot" />
+          </button>
+          <button id="btn-fullscreen" class="ui-btn" title="Fullscreen">
+            <img src="assets/icons/monitor.svg" alt="Fullscreen" />
+          </button>
         </div>
-        <button id="screenshot-download" class="screenshot-download">
-          <span>СКАЧАТЬ</span>
-          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
+        <!-- Location Navigation Panel -->
+        <div id="location-nav" class="location-nav">
+          <div id="location-list" class="location-list">
+            <!-- Dynamic buttons will be inserted here -->
+          </div>
+          <button id="location-main-btn" class="location-btn location-btn-main">
+            <span class="location-info">
+              <span class="location-icon" id="main-btn-icon"></span>
+              <span class="location-text" id="main-btn-text"></span>
+            </span>
+            <span class="location-toggle-icon">
+              <img src="assets/icons/arrow-down.svg" alt="Arrow Down" width="24" height="24" />
+            </span>
+          </button>
+        </div>
+        <!-- Scene Name Label -->
+        <div id="scene-name-label" class="scene-name-label hidden"></div>
+      </div>
+      <!-- Map Panel -->
+      <div id="map-panel" class="map-panel hidden">
+        <div class="map-content">
+          <!-- Map will be added here later -->
+        </div>
+        <button id="map-toggle-size" class="map-toggle-size" title="Expand">
+          <svg class="icon-expand" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <svg class="icon-collapse" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+        </button>
+        <button id="map-close" class="map-close" title="Close">
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
         </button>
       </div>
+      <!-- Screenshot Modal -->
+      <div id="screenshot-modal" class="screenshot-modal hidden">
+        <button id="screenshot-close" class="screenshot-close" title="Close">
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+        <div class="screenshot-content">
+          <div class="screenshot-frame">
+            <img id="screenshot-image" src="" alt="Screenshot" />
+          </div>
+          <button id="screenshot-download" class="screenshot-download">
+            <span>СКАЧАТЬ</span>
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div id="viewer"></div>
     </div>
-    <div id="viewer"></div>
     
   </body>
 </html>
