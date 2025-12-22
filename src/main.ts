@@ -21,6 +21,7 @@ const viewer = new Viewer({
   defaultYaw: '0deg',
   defaultZoomLvl: 0, // Most zoomed out (widest FOV)
   navbar: false,
+  mousewheel: false,
   plugins: [
     [VirtualTourPlugin, {
       positionMode: 'manual',

@@ -53,8 +53,8 @@ export const locationGroups: LocationGroup[] = [
           markers: [
             { nodeId: 'yard-1', x: 72, y: 56, rotationOffset: 0.7 },
             { nodeId: 'yard-2', x: 66, y: 56, rotationOffset: 0.7 },
-            { nodeId: 'yard-3', x: 57, y: 56, rotationOffset: 0.7 },
-            { nodeId: 'yard-4', x: 39, y: 33, rotationOffset: 1 },
+            // { nodeId: 'yard-3', x: 57, y: 56, rotationOffset: 0.7 },
+            // { nodeId: 'yard-4', x: 39, y: 33, rotationOffset: 1 },
           ],
         },
     scenes: [
@@ -66,7 +66,7 @@ export const locationGroups: LocationGroup[] = [
         defaultPitch: '-0.0747rad',
         links: [
           { nodeId: 'yard-2', position: { yaw: 0, pitch: 0 } },
-          { nodeId: 'yard-3', position: { yaw: 0.5488, pitch: 0.0044 } },
+          // { nodeId: 'yard-3', position: { yaw: 0.5488, pitch: 0.0044 } },
         ],
         markers: [],
       },
@@ -77,7 +77,7 @@ export const locationGroups: LocationGroup[] = [
         defaultYaw: '6.2573rad', defaultPitch: '0.0426rad',
         links: [
           { nodeId: 'yard-1', position: { yaw: 3.14, pitch: 0 } },
-          { nodeId: 'yard-3', position: { yaw: 0.9152, pitch: 0.0306 } },
+          // { nodeId: 'yard-3', position: { yaw: 0.9152, pitch: 0.0306 } },
         ],
         markers: [],
       },
@@ -88,7 +88,7 @@ export const locationGroups: LocationGroup[] = [
         defaultYaw: '0.1540rad', defaultPitch: '0.0801rad',
         links: [
           { nodeId: 'yard-2', position: { yaw: 1.7298, pitch: -0.0070 } },
-          { nodeId: 'yard-4', position: { yaw: 0.7868, pitch: -0.0066 } },
+          // { nodeId: 'yard-4', position: { yaw: 0.7868, pitch: -0.0066 } },
         ],
         markers: [],
       },
