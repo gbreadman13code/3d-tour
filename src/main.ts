@@ -1,6 +1,7 @@
 import { Viewer } from '@photo-sphere-viewer/core';
 import { VirtualTourPlugin } from '@photo-sphere-viewer/virtual-tour-plugin';
 import { MarkersPlugin } from '@photo-sphere-viewer/markers-plugin';
+import { EquirectangularTilesAdapter } from '@photo-sphere-viewer/equirectangular-tiles-adapter';
 
 import '@photo-sphere-viewer/core/index.css';
 import '@photo-sphere-viewer/virtual-tour-plugin/index.css';
@@ -54,24 +55,9 @@ const viewer = new Viewer({
     }],
     [MarkersPlugin, {}],
   ],
-  // adapter: [EquirectangularTilesAdapter, {
-  //   // Configuration for the adapter
-  //   // For now we use default settings, but this enables the functionality
-  //   // The 'panorama' property in nodes will need to match the adapter's expected format
-  //   // if we want to use tiling.
-  //   // If a simple string is passed as panorama, the adapter might fallback or we might need
-  //   // to handle it.
-  //   // Actually, EquirectangularTilesAdapter expects an object with width, cols, rows etc.
-  //   // If we want to support BOTH simple images and tiles, we might need logic.
-  //   // But usually for a tour, we stick to one format.
-  //   // Let's assume for now we use the adapter, but the mock data uses simple images.
-  //   // The adapter might throw if fed a string.
-  //   // Let's check if we can conditionally use it or if it supports strings.
-  //   // It usually replaces the default EquirectangularAdapter.
-  //   // So if we use it, we MUST provide the tiled configuration object.
-  //   // Since we don't have tiles yet, I will comment it out but leave the import
-  //   // so the user sees it's ready.
-  // }],
+  adapter: [EquirectangularTilesAdapter, {
+      background: true,
+  }],
 });
 
 const virtualTour = viewer.getPlugin(VirtualTourPlugin) as VirtualTourPlugin;

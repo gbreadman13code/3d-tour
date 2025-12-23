@@ -1,6 +1,12 @@
 export interface SceneConfig {
   id: string;
-  panorama: string;
+  panorama: string | {
+    width: number;
+    cols: number;
+    rows: number;
+    baseUrl: string;
+    tileUrl: (col: number, row: number) => string;
+  };
   name: string;
   hideInModal?: boolean; // NEW: Hide this scene in variant modal
   thumbnail?: string; // NEW: thumbnail for modal
@@ -62,7 +68,13 @@ export const locationGroups: LocationGroup[] = [
     scenes: [
       {
         id: 'yard-1',
-        panorama: 'assets/yard/1.jpg',
+        panorama: {
+          width: 2000,
+          cols: 4,
+          rows: 2,
+          baseUrl: 'assets/tiles/1/preview.jpg',
+          tileUrl: (col: number, row: number) => `assets/tiles/1/tile_${col}_${row}.jpg`,
+        },
         name: 'Двор - Вид 1',
         defaultYaw: '6.2819rad', 
         defaultPitch: '-0.0747rad',
@@ -74,7 +86,13 @@ export const locationGroups: LocationGroup[] = [
       },
       {
         id: 'yard-2',
-        panorama: 'assets/yard/2.jpg',
+        panorama: {
+          width: 2000,
+          cols: 4,
+          rows: 2,
+          baseUrl: 'assets/tiles/2/preview.jpg',
+          tileUrl: (col: number, row: number) => `assets/tiles/2/tile_${col}_${row}.jpg`,
+        },
         name: 'Двор - Вид 2',
         defaultYaw: '6.2573rad', defaultPitch: '0.0426rad',
         links: [
@@ -85,7 +103,13 @@ export const locationGroups: LocationGroup[] = [
       },
       {
         id: 'yard-3',
-        panorama: 'assets/yard/3.jpg',
+        panorama: {
+            width: 1000,
+            cols: 2,
+            rows: 1,
+            baseUrl: 'assets/tiles/3/preview.jpg',
+            tileUrl: (col: number, row: number) => `assets/tiles/3/tile_${col}_${row}.jpg`,
+        },
         name: 'Двор - Вид 3',
         defaultYaw: '0.1540rad', defaultPitch: '0.0801rad',
         links: [
@@ -96,7 +120,13 @@ export const locationGroups: LocationGroup[] = [
       },
       {
         id: 'yard-4',
-        panorama: 'assets/yard/4.jpg',
+        panorama: {
+            width: 1000,
+            cols: 2,
+            rows: 1,
+            baseUrl: 'assets/tiles/4/preview.jpg',
+            tileUrl: (col: number, row: number) => `assets/tiles/4/tile_${col}_${row}.jpg`,
+        },
         name: 'Пляж',
         defaultYaw: '0.0542rad', defaultPitch: '0.1459rad',
         links: [
@@ -127,7 +157,13 @@ export const locationGroups: LocationGroup[] = [
         scenes: [
           {
             id: 'room-std-bedroom',
-            panorama: 'assets/rooms/standart/bedroom.jpg',
+            panorama: {
+                width: 8192,
+                cols: 16,
+                rows: 8,
+                baseUrl: 'assets/tiles/bedroom/preview.jpg',
+                tileUrl: (col: number, row: number) => `assets/tiles/bedroom/tile_${col}_${row}.jpg`,
+            },
             name: 'СПАЛЬНЯ',
             defaultYaw: '4.0299rad', 
             defaultPitch: '-0.6012rad',
@@ -137,7 +173,13 @@ export const locationGroups: LocationGroup[] = [
           },
           {
             id: 'room-std-bedroom-1',
-            panorama: 'assets/rooms/standart/bedroom1.jpg',
+            panorama: {
+                width: 8192,
+                cols: 16,
+                rows: 8,
+                baseUrl: 'assets/tiles/bedroom1/preview.jpg',
+                tileUrl: (col: number, row: number) => `assets/tiles/bedroom1/tile_${col}_${row}.jpg`,
+            },
             name: 'СПАЛЬНЯ',
             defaultYaw: '5.2931rad', defaultPitch: '-0.5923rad',
             hideInModal: true,
@@ -164,7 +206,13 @@ export const locationGroups: LocationGroup[] = [
         scenes: [
           {
             id: 'room-jun-hall',
-            panorama: 'assets/rooms/junior_suite/hall.jpg',
+            panorama: {
+                width: 8192,
+                cols: 16,
+                rows: 8,
+                baseUrl: 'assets/tiles/hall/preview.jpg',
+                tileUrl: (col: number, row: number) => `assets/tiles/hall/tile_${col}_${row}.jpg`,
+            },
             name: 'ПРИХОЖАЯ',
             thumbnail: 'assets/rooms/junior_suite/thumbs/hall.jpg',
             defaultYaw: '5.1549rad', defaultPitch: '-0.4141rad',
@@ -173,7 +221,13 @@ export const locationGroups: LocationGroup[] = [
           },
           {
             id: 'room-jun-bedroom',
-            panorama: 'assets/rooms/junior_suite/master_bedroom1.jpg',
+            panorama: {
+                width: 8192,
+                cols: 16,
+                rows: 8,
+                baseUrl: 'assets/tiles/master_bedroom1/preview.jpg',
+                tileUrl: (col: number, row: number) => `assets/tiles/master_bedroom1/tile_${col}_${row}.jpg`,
+            },
             name: 'СПАЛЬНЯ',
             thumbnail: 'assets/rooms/junior_suite/thumbs/bedroom.jpg',
             defaultYaw: '2.0335rad', defaultPitch: '-0.5621rad',
@@ -186,7 +240,13 @@ export const locationGroups: LocationGroup[] = [
           },
           {
             id: 'room-jun-master-bedroom',
-            panorama: 'assets/rooms/junior_suite/master_bedroom.jpg',
+            panorama: {
+                width: 8192,
+                cols: 16,
+                rows: 8,
+                baseUrl: 'assets/tiles/master_bedroom/preview.jpg',
+                tileUrl: (col: number, row: number) => `assets/tiles/master_bedroom/tile_${col}_${row}.jpg`,
+            },
             name: 'СПАЛЬНЯ',
             defaultYaw: '0.9685rad', 
             defaultPitch: '-0.5973rad',
@@ -201,9 +261,15 @@ export const locationGroups: LocationGroup[] = [
           },
           {
             id: 'room-jun-master-bath',
-            panorama: 'assets/rooms/junior_suite/master_bath.jpg',
+            panorama: {
+                width: 8192,
+                cols: 16,
+                rows: 8,
+                baseUrl: 'assets/tiles/master_bath/preview.jpg',
+                tileUrl: (col: number, row: number) => `assets/tiles/master_bath/tile_${col}_${row}.jpg`,
+            },
             name: 'МАСТЕР САНУЗЕЛ',
-            thumbnail: 'assets/rooms/junior_suite/master_bath.jpg',
+            thumbnail: 'assets/rooms/junior_suite/thumbs/bath.jpg',
             defaultYaw: '2.9017rad',
             defaultPitch: '-0.0842rad',
             links: [{ nodeId: 'room-jun-master-bedroom', position: { yaw: 6.2342, pitch: -0.0877 } }],
