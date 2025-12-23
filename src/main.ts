@@ -17,7 +17,7 @@ const loadingStartTime = Date.now();
 const viewer = new Viewer({
   container: container,
   // loadingImg: '/loader.gif', // Removed because file is missing
-  touchmoveTwoFingers: true,
+  touchmoveTwoFingers: false,
   mousewheelCtrlKey: true,
   defaultYaw: '0deg',
   defaultZoomLvl: 0, // Most zoomed out (widest FOV)
