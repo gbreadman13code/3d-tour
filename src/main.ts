@@ -300,6 +300,7 @@ import { SceneConfig, LocationGroup, VariantConfig } from './data/tour-config';
 const variantSelector = new VariantSelector({
   container: document.getElementById('tour-wrapper') as HTMLElement,
   onSceneSelect: (scene: SceneConfig, allScenes: SceneConfig[], variant?: VariantConfig) => {
+    isPendingNavigation = false; // Selection confirmed
     currentSceneConfigs = allScenes; // Store for default yaw/pitch lookup
     virtualTour.setNodes(
       allScenes.map(s => ({
@@ -317,10 +318,20 @@ const variantSelector = new VariantSelector({
       updateMapState(locationGroup, variant);
       mapManager.setActiveMarker(scene.id);
     }
+  },
+  onClose: () => {
+    // If modal closed while navigation was pending (no selection made), revert state
+    if (isPendingNavigation) {
+      currentLocationId = previousLocationId;
+      isPendingNavigation = false;
+      renderLocationNav();
+    }
   }
 });
 
 let currentLocationId = 'yard'; // Default active location
+let previousLocationId = 'yard'; // Track previous location for cancellation
+let isPendingNavigation = false; // Track if we are in the middle of a location change
 
 // SVG icons for each location
 const locationIcons: Record<string, string> = {
@@ -373,6 +384,7 @@ const selectLocation = (locationId: string) => {
   const locationGroup = locationGroups.find(group => group.id === locationId);
   
   if (locationGroup) {
+    previousLocationId = currentLocationId; // Store previous location
     currentLocationId = locationId;
     
     // Determine which scenes to load
@@ -386,11 +398,13 @@ const selectLocation = (locationId: string) => {
     if (locationGroup.variants && locationGroup.variants.length > 0) {
       // If variants exist, DO NOT load scenes immediately.
       // Instead, open the variant selector modal.
+      isPendingNavigation = true; // Mark as pending navigation
       variantSelector.openVariantModal();
       return; 
     } else if (locationGroup.scenes) {
       // Fallback to direct scenes
       scenesToLoad = locationGroup.scenes;
+      isPendingNavigation = false; // Direct navigation confirmed
     }
 
     if (scenesToLoad.length > 0) {
