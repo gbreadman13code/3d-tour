@@ -183,10 +183,10 @@ html, body {
   position: fixed;
   top: 20px;
   right: 20px;
-  height: 672px;
+  height: 442px;
   /* width: 378px; */
   max-height: calc(100vh - 40px);
-  background-color: #e8dcc8;
+  background-color: #FFF8EA;
   border-radius: 30px;
   z-index: 100;
   overflow: hidden;
@@ -206,24 +206,23 @@ html, body {
 
 .map-panel.expanded {
   /* width: 646px; */
-  height: 800px;
+  height: calc(100vh - 40px);
 }
 
 /* Horizontal Map Support */
 .map-panel.is-horizontal {
-  width: 672px;
-  height: 378px;
+  width: 566px;
+  height: auto;
 }
 
 .map-panel.is-horizontal.expanded {
-  width: 922px;
-  height: 519px;
+  width: calc(566px * 1.5);
 }
 
 .map-content {
   width: 100%;
   height: 100%;
-  background-color: #e8dcc8;
+  background-color: #FFF8EA;
   /* Map image will be added here */
 }
 
@@ -243,6 +242,11 @@ html, body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s;
   color: #333;
+}
+
+.map-panel.is-horizontal .map-toggle-size {
+ right: 20px;
+ left: auto;
 }
 
 @media (max-height: 712px) {
@@ -298,11 +302,21 @@ html, body {
   .map-panel {
     top: 20px;
     right: 20px;
-    bottom: 20px;
+    bottom: auto;
     left: 20px;
-    width: auto;
+    width: auto !important;
     height: auto;
     border-radius: 30px;
+  }
+
+  .ui-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .ui-btn img {
+    width: 24px;
+    height: 24px;
   }
   
   .map-panel.expanded {
@@ -313,6 +327,14 @@ html, body {
   /* Hide expand/collapse button on mobile - only one state */
   .map-toggle-size {
     display: none;
+  }
+
+  .map-close {
+    top: 10px;
+    right: 10px;
+
+    width: 30px;
+    height: 30px;
   }
 }
 
@@ -468,7 +490,7 @@ html, body {
     height: 24px;
   }
   
-  .location-icon svg {
+  .location-icon img {
     width: 14px;
     height: 14px;
   }
@@ -736,10 +758,15 @@ html, body {
 /* Mobile Responsive */
 @media (max-width: 768px) {
   .variant-button {
-    top: 15px;
-    right: 15px;
-    padding: 10px 16px;
-    font-size: 12px;
+    top: 86px;
+    /* right: 15px; */
+    padding: 12px 32px;
+    font-size: 14px;
+  }
+
+  .scene-name-label {
+    left: 20px;
+    transform: translateX(0);
   }
   
   .variant-modal-content {

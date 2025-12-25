@@ -150,8 +150,8 @@ export const locationGroups: LocationGroup[] = [
           imageUrl: 'assets/rooms/standart/map/map.png',
           horizontal: true,
           markers: [
-            { nodeId: 'room-std-bedroom-1', x: 43, y: 57, rotationOffset: 0 },
-            { nodeId: 'room-std-bedroom', x: 57, y: 57, rotationOffset: -2.2 },
+            { nodeId: 'room-std-bedroom-1', x: 38, y: 64, rotationOffset: 0 },
+            { nodeId: 'room-std-bedroom', x: 55, y: 64, rotationOffset: -2.2 },
           ],
         },
         scenes: [
@@ -197,10 +197,10 @@ export const locationGroups: LocationGroup[] = [
           imageUrl: 'assets/rooms/junior_suite/map/map.png',
           horizontal: true,
           markers: [
-            { nodeId: 'room-jun-hall', x: 49, y: 36, rotationOffset: -2.5 },
-            { nodeId: 'room-jun-bedroom', x: 55, y: 61, rotationOffset: -2.2 },
-            { nodeId: 'room-jun-master-bedroom', x: 45, y: 61, rotationOffset: -2.2 },
-            { nodeId: 'room-jun-master-bath', x: 32, y: 63, rotationOffset: -2.2 },
+            { nodeId: 'room-jun-hall', x: 42, y: 36, rotationOffset: -2.5 },
+            { nodeId: 'room-jun-bedroom', x: 52, y: 61, rotationOffset: -2.2 },
+            { nodeId: 'room-jun-master-bedroom', x: 37, y: 61, rotationOffset: -2.2 },
+            { nodeId: 'room-jun-master-bath', x: 18, y: 63, rotationOffset: -2.2 },
           ],
         },
         scenes: [
