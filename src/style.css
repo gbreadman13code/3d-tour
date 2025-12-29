@@ -829,7 +829,7 @@ html, body {
 .map-marker::before {
   content: "";
   position: absolute;
-  inset: -10px; /* расширяем область на 10px */
+  inset: -7px; /* расширяем область на 10px */
 }
   
 
