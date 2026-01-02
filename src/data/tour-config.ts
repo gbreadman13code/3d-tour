@@ -261,6 +261,8 @@ export const locationGroups: LocationGroup[] = [
             { nodeId: 'room-jun-bedroom', x: 52, y: 61, rotationOffset: -2.2 },
             { nodeId: 'room-jun-master-bedroom', x: 37, y: 61, rotationOffset: -2.2 },
             { nodeId: 'room-jun-master-bath', x: 18, y: 63, rotationOffset: -2.2 },
+            { nodeId: 'bath', x: 20, y: 20, rotationOffset: -1 },
+            { nodeId: 'prihozhaya', x: 20, y: 42, rotationOffset: -2.2 },
           ],
         },
         scenes: [
