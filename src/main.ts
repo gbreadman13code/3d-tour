@@ -1,6 +1,7 @@
 import { Viewer } from '@photo-sphere-viewer/core';
 import { VirtualTourPlugin } from '@photo-sphere-viewer/virtual-tour-plugin';
 import { MarkersPlugin } from '@photo-sphere-viewer/markers-plugin';
+import { EquirectangularTilesAdapter } from '@photo-sphere-viewer/equirectangular-tiles-adapter';
 
 import '@photo-sphere-viewer/core/index.css';
 import '@photo-sphere-viewer/virtual-tour-plugin/index.css';
@@ -16,10 +17,10 @@ const loadingStartTime = Date.now();
 const viewer = new Viewer({
   container: container,
   // loadingImg: '/loader.gif', // Removed because file is missing
-  touchmoveTwoFingers: true,
+  touchmoveTwoFingers: false,
   mousewheelCtrlKey: true,
   defaultYaw: '0deg',
-  defaultZoomLvl: 0, // Most zoomed out (widest FOV)
+  defaultZoomLvl: 40, // Most zoomed out (widest FOV)
   navbar: false,
   mousewheel: false,
   plugins: [
@@ -54,24 +55,9 @@ const viewer = new Viewer({
     }],
     [MarkersPlugin, {}],
   ],
-  // adapter: [EquirectangularTilesAdapter, {
-  //   // Configuration for the adapter
-  //   // For now we use default settings, but this enables the functionality
-  //   // The 'panorama' property in nodes will need to match the adapter's expected format
-  //   // if we want to use tiling.
-  //   // If a simple string is passed as panorama, the adapter might fallback or we might need
-  //   // to handle it.
-  //   // Actually, EquirectangularTilesAdapter expects an object with width, cols, rows etc.
-  //   // If we want to support BOTH simple images and tiles, we might need logic.
-  //   // But usually for a tour, we stick to one format.
-  //   // Let's assume for now we use the adapter, but the mock data uses simple images.
-  //   // The adapter might throw if fed a string.
-  //   // Let's check if we can conditionally use it or if it supports strings.
-  //   // It usually replaces the default EquirectangularAdapter.
-  //   // So if we use it, we MUST provide the tiled configuration object.
-  //   // Since we don't have tiles yet, I will comment it out but leave the import
-  //   // so the user sees it's ready.
-  // }],
+  adapter: [EquirectangularTilesAdapter, {
+      background: true,
+  }],
 });
 
 const virtualTour = viewer.getPlugin(VirtualTourPlugin) as VirtualTourPlugin;
@@ -272,7 +258,7 @@ if (btnScreenshot) {
     }, { once: true });
 
     // 3. Zoom in (triggers the render which triggers the listener above)
-    viewer.zoom(50);
+    viewer.zoom(40);
     viewer.needsUpdate();
   });
 }
@@ -314,6 +300,7 @@ import { SceneConfig, LocationGroup, VariantConfig } from './data/tour-config';
 const variantSelector = new VariantSelector({
   container: document.getElementById('tour-wrapper') as HTMLElement,
   onSceneSelect: (scene: SceneConfig, allScenes: SceneConfig[], variant?: VariantConfig) => {
+    isPendingNavigation = false; // Selection confirmed
     currentSceneConfigs = allScenes; // Store for default yaw/pitch lookup
     virtualTour.setNodes(
       allScenes.map(s => ({
@@ -331,10 +318,20 @@ const variantSelector = new VariantSelector({
       updateMapState(locationGroup, variant);
       mapManager.setActiveMarker(scene.id);
     }
+  },
+  onClose: () => {
+    // If modal closed while navigation was pending (no selection made), revert state
+    if (isPendingNavigation) {
+      currentLocationId = previousLocationId;
+      isPendingNavigation = false;
+      renderLocationNav();
+    }
   }
 });
 
 let currentLocationId = 'yard'; // Default active location
+let previousLocationId = 'yard'; // Track previous location for cancellation
+let isPendingNavigation = false; // Track if we are in the middle of a location change
 
 // SVG icons for each location
 const locationIcons: Record<string, string> = {
@@ -387,6 +384,7 @@ const selectLocation = (locationId: string) => {
   const locationGroup = locationGroups.find(group => group.id === locationId);
   
   if (locationGroup) {
+    previousLocationId = currentLocationId; // Store previous location
     currentLocationId = locationId;
     
     // Determine which scenes to load
@@ -400,11 +398,13 @@ const selectLocation = (locationId: string) => {
     if (locationGroup.variants && locationGroup.variants.length > 0) {
       // If variants exist, DO NOT load scenes immediately.
       // Instead, open the variant selector modal.
+      isPendingNavigation = true; // Mark as pending navigation
       variantSelector.openVariantModal();
       return; 
     } else if (locationGroup.scenes) {
       // Fallback to direct scenes
       scenesToLoad = locationGroup.scenes;
+      isPendingNavigation = false; // Direct navigation confirmed
     }
 
     if (scenesToLoad.length > 0) {

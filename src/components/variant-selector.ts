@@ -3,11 +3,13 @@ import { LocationGroup, VariantConfig, SceneConfig } from '../data/tour-config';
 export interface VariantSelectorOptions {
   container: HTMLElement;
   onSceneSelect: (scene: SceneConfig, allScenes: SceneConfig[], variant?: VariantConfig) => void;
+  onClose?: () => void;
 }
 
 export class VariantSelector {
   private container: HTMLElement;
   private onSceneSelect: (scene: SceneConfig, allScenes: SceneConfig[], variant?: VariantConfig) => void;
+  private onClose?: () => void;
   private currentGroup: LocationGroup | null = null;
   private currentVariant: VariantConfig | null = null;
   private variantButton: HTMLElement | null = null;
@@ -16,6 +18,7 @@ export class VariantSelector {
   constructor(options: VariantSelectorOptions) {
     this.container = options.container;
     this.onSceneSelect = options.onSceneSelect;
+    this.onClose = options.onClose;
     this.init();
   }
 
@@ -105,7 +108,15 @@ export class VariantSelector {
           </div>
           <div class="variant-card-title">${variant.name}</div>
         `;
-        card.addEventListener('click', () => this.openSceneModal(variant));
+        card.addEventListener('click', () => {
+          this.setVariant(variant);
+          // Immediately select the first scene of the variant
+          const firstScene = variant.scenes[0];
+          if (firstScene) {
+            this.onSceneSelect(firstScene, variant.scenes, variant);
+            this.closeModal();
+          }
+        });
         grid.appendChild(card);
       });
     }
@@ -113,42 +124,10 @@ export class VariantSelector {
     this.modalOverlay.classList.remove('hidden');
   }
 
-  private openSceneModal(variant: VariantConfig) {
-    if (!this.modalOverlay) return;
-
-    const title = this.modalOverlay.querySelector('.variant-modal-title');
-    const backBtn = this.modalOverlay.querySelector('.variant-back-btn');
-    const grid = this.modalOverlay.querySelector('.variant-grid');
-
-    if (title) title.textContent = variant.name;
-    if (backBtn) backBtn.classList.remove('hidden');
-    
-    if (grid) {
-      grid.innerHTML = '';
-      grid.className = 'variant-grid scenes-mode'; // Add class for styling
-      
-      const visibleScenes = variant.scenes.filter(s => !s.hideInModal);
-      
-      visibleScenes.forEach(scene => {
-        const card = document.createElement('div');
-        card.className = 'scene-card';
-        card.innerHTML = `
-          <div class="scene-card-image">
-            <img src="${scene.thumbnail || scene.panorama}" alt="${scene.name}" loading="lazy" decoding="async" />
-          </div>
-          <div class="scene-card-title">${scene.name}</div>
-        `;
-        card.addEventListener('click', () => {
-          this.setVariant(variant);
-          this.onSceneSelect(scene, variant.scenes, variant);
-          this.closeModal();
-        });
-        grid.appendChild(card);
-      });
-    }
-  }
-
   private closeModal() {
     this.modalOverlay?.classList.add('hidden');
+    if (this.onClose) {
+      this.onClose();
+    }
   }
 }
