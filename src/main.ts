@@ -20,7 +20,7 @@ const viewer = new Viewer({
   touchmoveTwoFingers: false,
   mousewheelCtrlKey: true,
   defaultYaw: '0deg',
-  defaultZoomLvl: 0, // Most zoomed out (widest FOV)
+  defaultZoomLvl: 40, // Most zoomed out (widest FOV)
   navbar: false,
   mousewheel: false,
   plugins: [
@@ -258,7 +258,7 @@ if (btnScreenshot) {
     }, { once: true });
 
     // 3. Zoom in (triggers the render which triggers the listener above)
-    viewer.zoom(50);
+    viewer.zoom(40);
     viewer.needsUpdate();
   });
 }
