@@ -61,7 +61,7 @@ export const locationGroups: LocationGroup[] = [
           markers: [
             { nodeId: 'yard-1', x: 55, y: 28, rotationOffset: -0.8 },
             { nodeId: 'yard-2', x: 50, y: 31, rotationOffset: -2.2 },
-            { nodeId: 'yard-3', x: 60, y: 31, rotationOffset: 0 },
+            { nodeId: 'yard-3', x: 56, y: 31, rotationOffset: 0 },
             { nodeId: 'yard-4', x: 56, y: 35, rotationOffset: -4 },
             // { nodeId: 'yard-5', x: 58, y: 44, rotationOffset: -0.3 },
             // { nodeId: 'yard-6', x: 47, y: 53, rotationOffset: 1.2 },
@@ -127,7 +127,7 @@ defaultYaw: '0.0154rad', defaultPitch: '0.0479rad',
           tileUrl: (col, row) => `assets/tiles/3/tile_${col}_${row}.jpg`,
         },
         name: 'Двор - Вид сверху',
-        defaultYaw: '0.9313rad', defaultPitch: '0.0335rad',
+        defaultYaw: '5.5253rad', defaultPitch: '-0.1977rad',
         links: [
           { nodeId: 'yard-2', position: { yaw: 2.0158, pitch: -0.2428 } },
           { nodeId: 'yard-1', position: { yaw: 0.4559, pitch: -0.3144 } },
