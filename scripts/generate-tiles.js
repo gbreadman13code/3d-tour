@@ -55,16 +55,17 @@ async function processImage(inputPath) {
         for (let c = 0; c < cols; c++) {
             const left = c * TILE_SIZE;
             const top = r * TILE_SIZE;
-            const tileWidth = Math.min(TILE_SIZE, width - left);
-            const tileHeight = Math.min(TILE_SIZE, height - top);
 
             const tileName = `tile_${c}_${r}.jpg`;
             const tilePath = path.join(outputDir, tileName);
 
+            const tileWidth = Math.min(TILE_SIZE, width - left);
+            const tileHeight = Math.min(TILE_SIZE, height - top);
+
             await image
                 .clone()
                 .extract({ left, top, width: tileWidth, height: tileHeight })
-                .jpeg({ quality: 85 })
+                .jpeg({ quality: 95 })
                 .toFile(tilePath);
             
             count++;

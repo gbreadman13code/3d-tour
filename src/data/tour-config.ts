@@ -227,7 +227,7 @@ defaultYaw: '0.0154rad', defaultPitch: '0.0479rad',
       {
         id: 'yard-9',
         panorama: {
-          width: 8000,
+          width: 8192,
           cols: 16,
           rows: 8,
           baseUrl: `assets/tiles/9/preview.jpg`,
