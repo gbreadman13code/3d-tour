@@ -183,9 +183,9 @@ defaultYaw: '0.0154rad', defaultPitch: '0.0479rad',
         name: 'Бассейн',
         defaultYaw: '0.1673rad', defaultPitch: '0.0073rad',
         links: [
-          { nodeId: 'yard-7', position: { yaw: 4.1754, pitch: 0.0335 } },
-          { nodeId: 'yard-9', position: { yaw: 5.8685, pitch: 0.3566 } },
-          { nodeId: 'yard-10', position: { yaw: 0.9334, pitch: 0.0376 } }
+          { nodeId: 'yard-7', position: { yaw: 3.9951, pitch: 0.0352 } },
+          { nodeId: 'yard-9', position: { yaw: 0.1259, pitch: 0.2916 } },
+          { nodeId: 'yard-10', position: { yaw: 1.0741, pitch: -0.0048 } }
         ],
         markers: [],
       },
@@ -236,7 +236,7 @@ defaultYaw: '0.0154rad', defaultPitch: '0.0479rad',
         defaultYaw: '0.4731rad', defaultPitch: '-0.3426rad',
         links: [
           { nodeId: 'yard-7', position: { yaw: 2.5923, pitch: -0.0544 } },
-          { nodeId: 'yard-6', position: { yaw: 1.0714, pitch: -0.2983 } },
+          { nodeId: 'yard-6', position: { yaw: 1.8233, pitch: -0.4867 }},
           { nodeId: 'yard-10', position: { yaw: 6.1267, pitch: -0.0756 } },
         ],
         markers: [],
