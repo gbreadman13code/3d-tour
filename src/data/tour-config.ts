@@ -351,6 +351,74 @@ defaultYaw: '0.0154rad', defaultPitch: '0.0479rad',
         ],
       },
       {
+        id: 'residence',
+        name: 'Residence - Стандарт',
+        thumbnail: 'assets/rooms/residence/thumbs/1.png',
+        map: {
+          imageUrl: 'assets/rooms/residence/map/map.png',
+          horizontal: true,
+          markers: [
+            { nodeId: 'room-res-1', x: 21, y: 61, rotationOffset: -3.5 },
+            { nodeId: 'room-res-2', x: 42, y: 61, rotationOffset: -3.5 },
+            { nodeId: 'room-res-3', x: 75, y: 64, rotationOffset: -4 },
+          ],
+        },
+        scenes: [
+          {
+            id: 'room-res-1',
+            panorama: {
+                width: 8192,
+                cols: 16,
+                rows: 8,
+                baseUrl: 'assets/tiles/res-1/preview.jpg',
+                tileUrl: (col: number, row: number) => `assets/tiles/res-1/tile_${col}_${row}.jpg`,
+            },
+            name: 'Спальня',
+            defaultYaw: '0rad', defaultPitch: '0rad',
+            thumbnail: 'assets/rooms/residence/thumbs/res-1.jpg',
+            links: [
+              { nodeId: 'room-res-2', position: { yaw: 0.9956, pitch: -0.0413 } },
+            ],
+            markers: [],
+          },
+          {
+            id: 'room-res-2',
+            panorama: {
+                width: 8192,
+                cols: 16,
+                rows: 8,
+                baseUrl: 'assets/tiles/res-2/preview.jpg',
+                tileUrl: (col: number, row: number) => `assets/tiles/res-2/tile_${col}_${row}.jpg`,
+            },
+            name: 'Кухня',
+            defaultYaw: '0rad', defaultPitch: '0rad',
+            thumbnail: 'assets/rooms/residence/thumbs/res-2.jpg',
+            links: [
+              { nodeId: 'room-res-1', position: { yaw: 3.9771, pitch: -0.1477 } },
+              { nodeId: 'room-res-3', position: { yaw: 0.9477, pitch: -0.0855 } },
+            ],
+            markers: [],
+          },
+          {
+            id: 'room-res-3',
+            panorama: {
+                width: 8192,
+                cols: 16,
+                rows: 8,
+                baseUrl: 'assets/tiles/res-3/preview.jpg',
+                tileUrl: (col: number, row: number) => `assets/tiles/res-3/tile_${col}_${row}.jpg`,
+            },
+            name: 'Коридор',
+            defaultYaw: '0rad', defaultPitch: '0rad',
+            thumbnail: 'assets/rooms/residence/thumbs/res-3.jpg',
+            links: [
+              { nodeId: 'room-res-2', position: { yaw: 4.8483, pitch: -0.0659 } },
+            ],
+            markers: [],
+          },
+        ],
+      },
+      {
         id: 'junior-suite',
         name: 'ДЖУНИОР СЬЮТ',
         thumbnail: 'assets/rooms/junior_suite/thumbs/bedroom.jpg',
@@ -475,6 +543,7 @@ defaultYaw: '0.0154rad', defaultPitch: '0.0479rad',
           },
         ],
       },
+      
     ],
   },
   // {
