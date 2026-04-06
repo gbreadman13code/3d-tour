@@ -745,12 +745,12 @@ html, body {
   opacity: 1;
 }
 
-.variant-card.selected .variant-card-image {
+.variant-card:hover .variant-card-image {
   border-color: #fff;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
 }
 
-.variant-card.selected .variant-card-title {
+.variant-card:hover .variant-card-title {
   opacity: 1;
   font-weight: 700;
 }
