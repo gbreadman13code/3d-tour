@@ -98,8 +98,25 @@ viewer.addEventListener('panorama-error', (e) => {
     alert('Viewer Error: ' + (e.error.message || e.error));
 });
 
+// Active yaw restriction for the current scene
+let activeYawRange: [number, number] | null = null;
+
 viewer.addEventListener('position-updated', (e: any) => {
-    mapManager.updateRotation(e.position.yaw);
+  mapManager.updateRotation(e.position.yaw);
+
+  // Enforce yaw range if set for current scene
+  if (activeYawRange) {
+    const [minYaw, maxYaw] = activeYawRange;
+    const yaw = e.position.yaw;
+    // Normalise yaw to [0, 2π] for comparison
+    const TWO_PI = Math.PI * 2;
+    const normYaw = ((yaw % TWO_PI) + TWO_PI) % TWO_PI;
+    if (normYaw < minYaw) {
+      viewer.rotate({ yaw: minYaw, pitch: e.position.pitch });
+    } else if (normYaw > maxYaw) {
+      viewer.rotate({ yaw: maxYaw, pitch: e.position.pitch });
+    }
+  }
 });
 
 // Scene name label
@@ -115,12 +132,11 @@ virtualTour.addEventListener('node-changed', (e: any) => {
   } else if (sceneNameLabel) {
     sceneNameLabel.classList.add('hidden');
   }
-  
-  // Apply default yaw/pitch from scene config
-  // Logic moved to transitionOptions in VirtualTourPlugin config
-  
-  // Update active marker on map
+
   if (e.node) {
+    const sceneConfig = currentSceneConfigs.find(s => s.id === e.node.id);
+    // Set or clear yaw range restriction
+    activeYawRange = sceneConfig?.yawRange ?? null;
     mapManager.setActiveMarker(e.node.id);
   }
 });
