@@ -8,10 +8,12 @@ export interface SceneConfig {
     tileUrl: (col: number, row: number) => string;
   };
   name: string;
-  hideInModal?: boolean; // NEW: Hide this scene in variant modal
-  thumbnail?: string; // NEW: thumbnail for modal
+  hideInModal?: boolean;
+  thumbnail?: string;
   defaultYaw?: string; // e.g. '1.2345rad'
   defaultPitch?: string; // e.g. '-0.1234rad'
+  /** Ограничение горизонтального обзора. Значения в радианах [min, max]. */
+  yawRange?: [number, number];
   links: Array<{ nodeId: string; position: { yaw: number; pitch: number } }>;
   markers: Array<any>;
 }
@@ -289,7 +291,7 @@ defaultYaw: '0.0154rad', defaultPitch: '0.0479rad',
         },
         name: 'Пруд',
         defaultYaw: '1.3743rad', defaultPitch: '0.0049rad',
-        links: [
+                links: [
           { nodeId: 'yard-11', position: { yaw: 1.6561, pitch: -0.0137 } },
           { nodeId: 'yard-1', position: { yaw: 5.0166, pitch: 0.0420 } },
           // { nodeId: 'yard-8', position: { yaw: 0.9582, pitch: 0.0520 } },
