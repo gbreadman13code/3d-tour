@@ -71,6 +71,7 @@ export const locationGroups: LocationGroup[] = [
             { nodeId: 'yard-10', x: 47, y: 44, rotationOffset: -2 },
             { nodeId: 'yard-11', x: 43, y: 41, rotationOffset: -3.3 },
             { nodeId: 'yard-12', x: 44, y: 37, rotationOffset: -2 },
+            { nodeId: 'yard-13', x: 10, y: 10, rotationOffset: -2 },
           ],
         },
     scenes: [
@@ -293,6 +294,23 @@ defaultYaw: '0.0154rad', defaultPitch: '0.0479rad',
           { nodeId: 'yard-1', position: { yaw: 5.0166, pitch: 0.0420 } },
           // { nodeId: 'yard-8', position: { yaw: 0.9582, pitch: 0.0520 } },
           // { nodeId: 'yard-10', position: { yaw: 1.6060, pitch: 0.0229 } },
+        ],
+        markers: [],
+      },
+      {
+        id: 'yard-13',
+        panorama: {
+          width: 8000,
+          cols: 16,
+          rows: 8,
+          baseUrl: `assets/tiles/13/preview.jpg`,
+          tileUrl: (col, row) => `assets/tiles/13/tile_${col}_${row}.jpg`,
+        },
+        name: 'Двор - Вид сверху',
+        defaultYaw: '6.0316rad', defaultPitch: '-0.5539rad',
+        links: [
+          { nodeId: 'yard-1', position: { yaw: 5.7086, pitch: -0.4832 } },
+
         ],
         markers: [],
       },
