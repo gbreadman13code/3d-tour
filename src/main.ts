@@ -100,22 +100,38 @@ viewer.addEventListener('panorama-error', (e) => {
 
 // Active yaw restriction for the current scene
 let activeYawRange: [number, number] | null = null;
+// Guard против рекурсивных вызовов rotate из position-updated
+let isAdjustingYaw = false;
 
 viewer.addEventListener('position-updated', (e: any) => {
   mapManager.updateRotation(e.position.yaw);
 
-  // Enforce yaw range if set for current scene
-  if (activeYawRange) {
-    const [minYaw, maxYaw] = activeYawRange;
-    const yaw = e.position.yaw;
-    // Normalise yaw to [0, 2π] for comparison
-    const TWO_PI = Math.PI * 2;
-    const normYaw = ((yaw % TWO_PI) + TWO_PI) % TWO_PI;
-    if (normYaw < minYaw) {
-      viewer.rotate({ yaw: minYaw, pitch: e.position.pitch });
-    } else if (normYaw > maxYaw) {
-      viewer.rotate({ yaw: maxYaw, pitch: e.position.pitch });
+  if (isAdjustingYaw || !activeYawRange) return;
+
+  const [minYaw, maxYaw] = activeYawRange;
+  const TWO_PI = Math.PI * 2;
+  const normYaw = ((e.position.yaw % TWO_PI) + TWO_PI) % TWO_PI;
+
+  let clampedYaw: number | null = null;
+
+  if (minYaw <= maxYaw) {
+    // Обычный диапазон: разрешено [min, max]
+    if (normYaw < minYaw) clampedYaw = minYaw;
+    else if (normYaw > maxYaw) clampedYaw = maxYaw;
+  } else {
+    // Диапазон «через ноль»: разрешено [min..2π] ∪ [0..max]
+    // Запрещённый сектор — (max, min), ближайшая граница — та, что ближе
+    if (normYaw > maxYaw && normYaw < minYaw) {
+      const distToMax = normYaw - maxYaw;
+      const distToMin = minYaw - normYaw;
+      clampedYaw = distToMax <= distToMin ? maxYaw : minYaw;
     }
+  }
+
+  if (clampedYaw !== null) {
+    isAdjustingYaw = true;
+    viewer.rotate({ yaw: clampedYaw, pitch: e.position.pitch });
+    isAdjustingYaw = false;
   }
 });
 

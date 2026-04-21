@@ -315,6 +315,7 @@ defaultYaw: '0.0154rad', defaultPitch: '0.0479rad',
 
         ],
         markers: [],
+        yawRange: [5.2522, 0.8155], // wrap-around: разрешено [5.25..2π] ∪ [0..0.82]
       },
     ],
   },
