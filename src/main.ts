@@ -112,19 +112,30 @@ viewer.addEventListener('position-updated', (e: any) => {
   const TWO_PI = Math.PI * 2;
   const normYaw = ((e.position.yaw % TWO_PI) + TWO_PI) % TWO_PI;
 
+  // Смещение на половину HFOV: граница в конфиге = край видимой области,
+  // а не центр экрана. Это делает ограничение независимым от размера экрана.
+  const hFovDeg: number = (viewer as any).state?.hFov ?? 0;
+  const halfHFov = (hFovDeg * Math.PI) / 180 / 2;
+
   let clampedYaw: number | null = null;
 
   if (minYaw <= maxYaw) {
-    // Обычный диапазон: разрешено [min, max]
-    if (normYaw < minYaw) clampedYaw = minYaw;
-    else if (normYaw > maxYaw) clampedYaw = maxYaw;
+    // Обычный диапазон [min, max]: центр зажимается в [min+half, max-half]
+    const eMin = minYaw + halfHFov;
+    const eMax = maxYaw - halfHFov;
+    if (eMin < eMax) { // Диапазон достаточно широк для текущего FOV
+      if (normYaw < eMin) clampedYaw = eMin;
+      else if (normYaw > eMax) clampedYaw = eMax;
+    }
   } else {
     // Диапазон «через ноль»: разрешено [min..2π] ∪ [0..max]
-    // Запрещённый сектор — (max, min), ближайшая граница — та, что ближе
-    if (normYaw > maxYaw && normYaw < minYaw) {
-      const distToMax = normYaw - maxYaw;
-      const distToMin = minYaw - normYaw;
-      clampedYaw = distToMax <= distToMin ? maxYaw : minYaw;
+    // Запрещённый сектор — (max, min), эффективные границы смещены на halfHFov
+    const eMax = maxYaw - halfHFov;
+    const eMin = minYaw + halfHFov;
+    if (normYaw > eMax && normYaw < eMin) {
+      const distToMax = normYaw - eMax;
+      const distToMin = eMin - normYaw;
+      clampedYaw = distToMax <= distToMin ? eMax : eMin;
     }
   }
 
