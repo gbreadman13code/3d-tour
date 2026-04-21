@@ -100,22 +100,49 @@ viewer.addEventListener('panorama-error', (e) => {
 
 // Active yaw restriction for the current scene
 let activeYawRange: [number, number] | null = null;
+// Guard против рекурсивных вызовов rotate из position-updated
+let isAdjustingYaw = false;
 
 viewer.addEventListener('position-updated', (e: any) => {
   mapManager.updateRotation(e.position.yaw);
 
-  // Enforce yaw range if set for current scene
-  if (activeYawRange) {
-    const [minYaw, maxYaw] = activeYawRange;
-    const yaw = e.position.yaw;
-    // Normalise yaw to [0, 2π] for comparison
-    const TWO_PI = Math.PI * 2;
-    const normYaw = ((yaw % TWO_PI) + TWO_PI) % TWO_PI;
-    if (normYaw < minYaw) {
-      viewer.rotate({ yaw: minYaw, pitch: e.position.pitch });
-    } else if (normYaw > maxYaw) {
-      viewer.rotate({ yaw: maxYaw, pitch: e.position.pitch });
+  if (isAdjustingYaw || !activeYawRange) return;
+
+  const [minYaw, maxYaw] = activeYawRange;
+  const TWO_PI = Math.PI * 2;
+  const normYaw = ((e.position.yaw % TWO_PI) + TWO_PI) % TWO_PI;
+
+  // Смещение на половину HFOV: граница в конфиге = край видимой области,
+  // а не центр экрана. Это делает ограничение независимым от размера экрана.
+  const hFovDeg: number = (viewer as any).state?.hFov ?? 0;
+  const halfHFov = (hFovDeg * Math.PI) / 180 / 2;
+
+  let clampedYaw: number | null = null;
+
+  if (minYaw <= maxYaw) {
+    // Обычный диапазон [min, max]: центр зажимается в [min+half, max-half]
+    const eMin = minYaw + halfHFov;
+    const eMax = maxYaw - halfHFov;
+    if (eMin < eMax) { // Диапазон достаточно широк для текущего FOV
+      if (normYaw < eMin) clampedYaw = eMin;
+      else if (normYaw > eMax) clampedYaw = eMax;
     }
+  } else {
+    // Диапазон «через ноль»: разрешено [min..2π] ∪ [0..max]
+    // Запрещённый сектор — (max, min), эффективные границы смещены на halfHFov
+    const eMax = maxYaw - halfHFov;
+    const eMin = minYaw + halfHFov;
+    if (normYaw > eMax && normYaw < eMin) {
+      const distToMax = normYaw - eMax;
+      const distToMin = eMin - normYaw;
+      clampedYaw = distToMax <= distToMin ? eMax : eMin;
+    }
+  }
+
+  if (clampedYaw !== null) {
+    isAdjustingYaw = true;
+    viewer.rotate({ yaw: clampedYaw, pitch: e.position.pitch });
+    isAdjustingYaw = false;
   }
 });
 
