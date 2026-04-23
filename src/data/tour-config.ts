@@ -399,9 +399,10 @@ defaultYaw: '0.0154rad', defaultPitch: '0.0479rad',
           imageUrl: 'assets/rooms/residence_alt_standart/map/map.png',
           horizontal: true,
           markers: [
-            { nodeId: 'residence_alt_standart_1', x: 20, y: 62, rotationOffset: 1.7 },
-            { nodeId: 'residence_alt_standart_2', x: 30, y: 51, rotationOffset: -2.4 },
-            { nodeId: 'residence_alt_standart_3', x: 70, y: 46, rotationOffset: -1.8 },
+
+            { nodeId: 'volna-alt-standard-scene-1', x: 20, y: 62, rotationOffset: 2.1 },
+            { nodeId: 'volna-alt-standard-scene-2', x: 42, y: 59, rotationOffset: 0 },
+            { nodeId: 'volna-alt-standard-scene-3', x: 78, y: 39, rotationOffset: 1 },
           ],
         },
         scenes: [
