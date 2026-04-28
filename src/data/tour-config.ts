@@ -399,10 +399,10 @@ defaultYaw: '0.0154rad', defaultPitch: '0.0479rad',
           imageUrl: 'assets/rooms/residence_alt_standart/map/map.png',
           horizontal: true,
           markers: [
-
             { nodeId: 'volna-alt-standard-scene-1', x: 20, y: 62, rotationOffset: 2.1 },
             { nodeId: 'volna-alt-standard-scene-2', x: 42, y: 59, rotationOffset: 0 },
-            { nodeId: 'volna-alt-standard-scene-3', x: 78, y: 39, rotationOffset: 1 },
+            { nodeId: 'volna-alt-standard-scene-3', x: 78, y: 39, rotationOffset: -0.7 },
+            { nodeId: 'volna-alt-standard-scene-4', x: 66, y: 59, rotationOffset: -0.8 },
           ],
         },
         scenes: [
@@ -419,7 +419,11 @@ defaultYaw: '0.0154rad', defaultPitch: '0.0479rad',
             defaultYaw: '0.6978rad', defaultPitch: '-0.4281rad',
             thumbnail: 'assets/tiles/residence_alt_standart_1/preview.jpg',
             
-            links: [ { nodeId: 'volna-alt-standard-scene-2', position: { yaw: 1.6141, pitch: -0.4552 } } ],
+            links: [ 
+              { nodeId: 'volna-alt-standard-scene-2', position: { yaw: 1.6141, pitch: -0.4552 } },
+              { nodeId: 'volna-alt-standard-scene-3', position: { yaw: 1.4237, pitch: -0.0762 } },
+              { nodeId: 'volna-alt-standard-scene-4', position: { yaw: 1.6291, pitch: -0.1240 } }
+             ],
             markers: [],
           },
           {
@@ -436,8 +440,9 @@ defaultYaw: '0.0154rad', defaultPitch: '0.0479rad',
             hideInModal: true,
             thumbnail: 'assets/tiles/residence_alt_standart_2/preview.jpg',
             links: [ 
-              { nodeId: 'volna-alt-standard-scene-1', position:  { yaw: 0.7240, pitch: -0.4135 } },
-              { nodeId: 'volna-alt-standard-scene-3', position: { yaw: 3.4043, pitch: -0.3292 } },
+              { nodeId: 'volna-alt-standard-scene-1', position:  { yaw: 0.7240, pitch: -0.1564 } },
+              { nodeId: 'volna-alt-standard-scene-3', position: { yaw: 3.5685, pitch: -0.1638 } },
+              { nodeId: 'volna-alt-standard-scene-4', position: { yaw: 4.2165, pitch: -0.1962 } }
              ],
             markers: [],
           },
@@ -453,7 +458,28 @@ defaultYaw: '0.0154rad', defaultPitch: '0.0479rad',
             name: 'Прихожая',
             defaultYaw: '0.4297rad', defaultPitch: '-0.3920rad',
             thumbnail: 'assets/rooms/standart/thumbs/2.jpg',
-            links: [ { nodeId: 'volna-alt-standard-scene-2', position: { yaw: 6.2823, pitch: -0.5096 } } ],
+            links: [ 
+              { nodeId: 'volna-alt-standard-scene-2', position: { yaw: 1.5658, pitch: -0.1767 } },
+              { nodeId: 'volna-alt-standard-scene-4', position: { yaw: 1.2845, pitch: -0.1767 } }
+             ],
+            markers: [],
+          },
+          {
+            id: 'volna-alt-standard-scene-4',
+            panorama: {
+                width: 8192,
+                cols: 16,
+                rows: 8,
+                baseUrl: 'assets/tiles/residence_alt_standart_4/preview.jpg',
+                tileUrl: (col: number, row: number) => `assets/tiles/residence_alt_standart_4/tile_${col}_${row}.jpg`,
+            },
+            name: 'Санузел',
+            defaultYaw: '0.4297rad', defaultPitch: '-0.3920rad',
+            thumbnail: 'assets/rooms/standart/thumbs/2.jpg',
+            links: [ 
+              { nodeId: 'volna-alt-standard-scene-2', position: { yaw: 2.5690, pitch: -0.5276 } },
+              { nodeId: 'volna-alt-standard-scene-3', position: { yaw: 3.4045, pitch: -0.5276 } }
+             ],
             markers: [],
           },
         ],
