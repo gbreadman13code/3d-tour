@@ -451,7 +451,7 @@ const selectLocation = (locationId: string) => {
     }
 
     if (scenesToLoad.length > 0) {
-      startNodeId = scenesToLoad[0].id;
+      startNodeId = scenesToLoad.find(s => s.id === locationGroup.defaultSceneId)?.id ?? scenesToLoad[0].id;
       currentSceneConfigs = scenesToLoad; // Store for default yaw/pitch lookup
       
       // Load the new scenes

@@ -48,6 +48,7 @@ export interface LocationGroup {
   scenes?: SceneConfig[]; // For backward compatibility / simple groups
   variants?: VariantConfig[]; // For groups with variants
   defaultVariantId?: string;
+  defaultSceneId?: string; // Which scene to open first (defaults to scenes[0] if omitted)
   map?: MapConfig;
 }
 
@@ -57,6 +58,7 @@ export const locationGroups: LocationGroup[] = [
     id: 'yard',
     name: 'ДВОР',
     icon: 'yard',
+    defaultSceneId: 'yard-3',
     map: {
           imageUrl: 'assets/yard/map.jpg',
           horizontal: false,
@@ -327,68 +329,159 @@ export const locationGroups: LocationGroup[] = [
     id: 'rooms',
     name: 'НОМЕРА',
     icon: 'rooms',
-    defaultVariantId: 'standard',
+    defaultVariantId: 'alean_family',
     variants: [
       {
-        id: 'standard',
-        name: 'Volna Resort - Стандарт',
-        thumbnail: 'assets/rooms/standart/thumbs/1.jpg',
+        id: 'alean_family',
+        name: 'Алеан Фемели Волна 4*',
+        thumbnail: 'assets/rooms/alean_family/thumbs/1.jpg',
         map: {
-          imageUrl: 'assets/rooms/standart/map/map.png',
+          imageUrl: 'assets/rooms/alean_family/map/map.png',
           horizontal: true,
           markers: [
-            { nodeId: 'room-std-bedroom-1', x: 61, y: 74, rotationOffset: 1.7 },
-            { nodeId: 'room-std-bedroom', x: 30, y: 51, rotationOffset: -2.4 },
-            { nodeId: 'room-std-bedroom-2', x: 70, y: 46, rotationOffset: -1.8 },
+            { nodeId: 'room-alean-bedroom-1', x: 61, y: 74, rotationOffset: 1.7 },
+            { nodeId: 'room-alean-bedroom', x: 30, y: 51, rotationOffset: -2.4 },
+            { nodeId: 'room-alean-bedroom-2', x: 70, y: 46, rotationOffset: -1.8 },
           ],
         },
         scenes: [
           {
-            id: 'room-std-bedroom',
+            id: 'room-alean-bedroom',
             panorama: {
                 width: 8192,
                 cols: 16,
                 rows: 8,
-                baseUrl: 'assets/tiles/bedroom/preview.jpg',
-                tileUrl: (col: number, row: number) => `assets/tiles/bedroom/tile_${col}_${row}.jpg`,
+                baseUrl: 'assets/tiles/alean_family_bedroom/preview.jpg',
+                tileUrl: (col: number, row: number) => `assets/tiles/alean_family_bedroom/tile_${col}_${row}.jpg`,
             },
             name: 'Спальня',
             defaultYaw: '0.6978rad', defaultPitch: '-0.4281rad',
-            thumbnail: 'assets/rooms/standart/thumbs/1.jpg',
-            links: [ { nodeId: 'room-std-bedroom-1', position: { yaw: 0.6102, pitch: -0.3375 } } ],
+            thumbnail: 'assets/rooms/alean_family/thumbs/1.jpg',
+            links: [ { nodeId: 'room-alean-bedroom-1', position: { yaw: 0.6102, pitch: -0.3375 } } ],
             markers: [],
           },
           {
-            id: 'room-std-bedroom-1',
+            id: 'room-alean-bedroom-1',
             panorama: {
                 width: 8192,
                 cols: 16,
                 rows: 8,
-                baseUrl: 'assets/tiles/bedroom1/preview.jpg',
-                tileUrl: (col: number, row: number) => `assets/tiles/bedroom1/tile_${col}_${row}.jpg`,
+                baseUrl: 'assets/tiles/alean_family_bedroom1/preview.jpg',
+                tileUrl: (col: number, row: number) => `assets/tiles/alean_family_bedroom1/tile_${col}_${row}.jpg`,
             },
             name: 'Коридор',
             defaultYaw: '6.2279rad', defaultPitch: '-0.4144rad',
             hideInModal: true,
-            thumbnail: 'assets/rooms/standart/thumbs/2.jpg',
-            links: [ { nodeId: 'room-std-bedroom', position: { yaw: 6.1860, pitch: -0.2614 } },
-              { nodeId: 'room-std-bedroom-2', position: { yaw: 2.1295, pitch: -0.0932 } },
+            thumbnail: 'assets/rooms/alean_family/thumbs/2.jpg',
+            links: [ { nodeId: 'room-alean-bedroom', position: { yaw: 6.1860, pitch: -0.2614 } },
+              { nodeId: 'room-alean-bedroom-2', position: { yaw: 2.1295, pitch: -0.0932 } },
              ],
             markers: [],
           },
           {
-            id: 'room-std-bedroom-2',
+            id: 'room-alean-bedroom-2',
             panorama: {
                 width: 8192,
                 cols: 16,
                 rows: 8,
-                baseUrl: 'assets/tiles/bedroom2/preview.jpg',
-                tileUrl: (col: number, row: number) => `assets/tiles/bedroom2/tile_${col}_${row}.jpg`,
+                baseUrl: 'assets/tiles/alean_family_bedroom2/preview.jpg',
+                tileUrl: (col: number, row: number) => `assets/tiles/alean_family_bedroom2/tile_${col}_${row}.jpg`,
             },
             name: 'Санузел',
             defaultYaw: '5.7821rad', defaultPitch: '-0.4855rad',
-            thumbnail: 'assets/rooms/standart/thumbs/2.jpg',
-            links: [ { nodeId: 'room-std-bedroom-1', position: { yaw: 0.8616, pitch: -0.1845 } } ],
+            thumbnail: 'assets/rooms/alean_family/thumbs/2.jpg',
+            links: [ { nodeId: 'room-alean-bedroom-1', position: { yaw: 0.8616, pitch: -0.1845 } } ],
+            markers: [],
+          },
+        ],
+      },
+      {
+        id: 'residence-volna-standart',
+        name: 'Резиденция Волна - Стандарт',
+        thumbnail: 'assets/rooms/residence_volna_standart/thumbs/bedroom.jpg',
+        map: {
+          imageUrl: 'assets/rooms/residence_volna_standart/map/map.png',
+          horizontal: true,
+          markers: [
+            { nodeId: 'room-rvs-bedroom', x: 24, y: 61, rotationOffset: 2.4 },
+            { nodeId: 'room-rvs-dining', x: 54, y: 57, rotationOffset: 1.8 },
+            { nodeId: 'room-rvs-hall', x: 85, y: 57, rotationOffset: 1 },
+            { nodeId: 'room-rvs-bath', x: 72, y: 43, rotationOffset: 2.4 },
+          ],
+        },
+        scenes: [
+          {
+            id: 'room-rvs-bedroom',
+            panorama: {
+                width: 8192,
+                cols: 16,
+                rows: 8,
+                baseUrl: 'assets/tiles/residence_volna_standart_bedroom/preview.jpg',
+                tileUrl: (col: number, row: number) => `assets/tiles/residence_volna_standart_bedroom/tile_${col}_${row}.jpg`,
+            },
+            name: 'Спальня',
+            defaultYaw: '0.3832rad', defaultPitch: '-0.3617rad',
+            thumbnail: 'assets/rooms/residence_volna_standart/thumbs/bedroom.jpg',
+            links: [
+              { nodeId: 'room-rvs-dining', position: { yaw: 1.5335, pitch: -0.1153 } },
+
+            ],
+            markers: [],
+          },
+          {
+            id: 'room-rvs-dining',
+            panorama: {
+                width: 8192,
+                cols: 16,
+                rows: 8,
+                baseUrl: 'assets/tiles/residence_volna_standart_dining/preview.jpg',
+                tileUrl: (col: number, row: number) => `assets/tiles/residence_volna_standart_dining/tile_${col}_${row}.jpg`,
+            },
+            name: 'Столовая',
+            defaultYaw: '6.2064rad', defaultPitch: '-0.4422rad',
+            thumbnail: 'assets/rooms/residence_volna_standart/thumbs/bedroom.jpg',
+            links: [
+              { nodeId: 'room-rvs-hall', position: { yaw: 2.3931, pitch: -0.0673 } },
+              { nodeId: 'room-rvs-bath', position: { yaw: 2.2098, pitch: -0.1845 } },
+              { nodeId: 'room-rvs-bedroom', position: { yaw: 5.3965, pitch: -0.0808 } },
+
+            ],
+            markers: [],
+          },
+          {
+            id: 'room-rvs-hall',
+            panorama: {
+                width: 8192,
+                cols: 16,
+                rows: 8,
+                baseUrl: 'assets/tiles/residence_volna_standart_hall/preview.jpg',
+                tileUrl: (col: number, row: number) => `assets/tiles/residence_volna_standart_hall/tile_${col}_${row}.jpg`,
+            },
+            name: 'Гостиная',
+            defaultYaw: '0.6261rad', defaultPitch: '-0.2426rad',
+            thumbnail: 'assets/rooms/residence_volna_standart/thumbs/bedroom.jpg',
+            links: [
+              { nodeId: 'room-rvs-dining', position: { yaw: 6.2726, pitch: -0.1023 } },
+              { nodeId: 'room-rvs-bath', position: { yaw: 0.3635, pitch: -0.1669 } },
+
+            ],
+            markers: [],
+          },
+          {
+            id: 'room-rvs-bath',
+            panorama: {
+                width: 8192,
+                cols: 16,
+                rows: 8,
+                baseUrl: 'assets/tiles/residence_volna_standart_bath/preview.jpg',
+                tileUrl: (col: number, row: number) => `assets/tiles/residence_volna_standart_bath/tile_${col}_${row}.jpg`,
+            },
+            name: 'Санузел',
+            defaultYaw: '0.1648rad', defaultPitch: '-0.5423rad',
+            thumbnail: 'assets/rooms/residence_volna_standart/thumbs/bedroom.jpg',
+            links: [
+              { nodeId: 'room-rvs-hall', position: { yaw: 2.8550, pitch: -0.1820 } },
+            ],
             markers: [],
           },
         ],
